@@ -1,6 +1,6 @@
 # Event Management System
 
- Project under development 🚧
+ Project under development 
 
 This project is being developed in Java with the goal of practicing Object-Oriented Programming (OOP), code organization, and good software development practices.
 
