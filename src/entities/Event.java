@@ -61,6 +61,14 @@ public class Event {
         this.ticketBase = ticketBase;
     }
 
+    public List<Ticket> getTicketsSold() {
+        return ticketsSold;
+    }
+
+    public Set<String> getBuyerEmails() {
+        return buyerEmails;
+    }
+
     public void addTicket(Ticket ticket) {
         ticketsSold.add(ticket);
     }
@@ -71,5 +79,8 @@ public class Event {
 
     public void addBuyerEmail(String emails) {
         buyerEmails.add(emails);
+    }
+    public void removeBuyerEmail (String emails){
+        buyerEmails.remove(emails);
     }
 }
