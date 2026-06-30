@@ -1,4 +1,7 @@
 package entities.enums;
 
-public class TicketType {
+public enum TicketType {
+    COMMOM,
+    STUDENT,
+    VIP;
 }
