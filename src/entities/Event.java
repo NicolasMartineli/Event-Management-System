@@ -49,14 +49,6 @@ public class Event {
         return maximumCapacity;
     }
 
-    public List<Ticket> getTicketsSold() {
-        return ticketsSold;
-    }
-
-    public Set<String> getBuyerEmails() {
-        return buyerEmails;
-    }
-
     public void setMaximumCapacity(Integer maximumCapacity) {
         this.maximumCapacity = maximumCapacity;
     }
@@ -81,19 +73,14 @@ public class Event {
         ticketsSold.add(ticket);
     }
 
+    public void addBuyerEmail(String email) {
+        buyerEmails.add(email);
+    }
+
+    public void removeBuyerEmail(String email) {
+        buyerEmails.remove(email);
+    }
     public void removeTicket(Ticket ticket) {
         ticketsSold.remove(ticket);
-    }
-
-    public void addBuyerEmail(String emails) {
-        buyerEmails.add(emails);
-    }
-<<<<<<< HEAD
-    public void removeBuyerEmail (String emails){
-=======
-
-    public void removeBuyerEmail(String emails) {
->>>>>>> temp-branch
-        buyerEmails.remove(emails);
     }
 }
