@@ -1,0 +1,15 @@
+# IntelliJ IDEA
+.idea/
+
+# Compiled files
+*.class
+
+# Build directories
+out/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
