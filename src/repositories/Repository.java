@@ -15,8 +15,9 @@ public class Repository<T> {
         return items.values();
     }
 
-    public T finById(Integer id) {
+    public T findById(Integer id) {
         return items.get(id);
     }
 
 }
+

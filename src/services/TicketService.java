@@ -6,6 +6,8 @@ import entities.enums.TicketType;
 import exceptions.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static entities.enums.TicketType.*;
 
@@ -26,10 +28,10 @@ public class TicketService {
             throw new EventFullException("Error: The event is full");
         }
         if (buyerName == null || buyerName.isBlank()) {
-            throw new IllegalArgumentException("Error: Buyer name cannot be empty");
+            throw new InvalidTicketException("Error: Buyer name cannot be empty");
         }
         if (buyerEmail == null || buyerEmail.isBlank()) {
-            throw new IllegalArgumentException("Error: Buyer email cannot be empty");
+            throw new InvalidTicketException("Error: Buyer email cannot be empty");
         }
         if (event.getData().isBefore(LocalDate.now())) {
             throw new InvalidEventException("Error: The event has already happened");
@@ -49,11 +51,33 @@ public class TicketService {
 
         }
         if (ticket != null) {
-            event.getTicketsSold().add(ticket);
-            event.getBuyerEmails().add(buyerEmail);
+            event.addTicket(ticket);
+            event.addBuyerEmail(buyerEmail);
 
         }
         return ticket;
+    }
+
+    public void listTicketByEvent(Event event) {
+        if (event == null) {
+            throw new EventNotFoundException("Error: Event does not exist");
+        }
+        List<Ticket> eventTicket = event.getTicketsSold();
+
+        if (eventTicket.isEmpty()) {
+            System.out.println("No tickets sold for this event yet. ");
+            return;
+        }
+        System.out.print("Tickets sales for " + event.getName() + ":");
+        System.out.println();
+
+        eventTicket.forEach(ticket ->
+                System.out.printf("%s - %s - %s - %.2f%n",
+                        ticket.getBuyerName(),
+                        ticket.getBuyerEmail(),
+                        ticket.getTicketType(),
+                        ticket.priceTicket())
+        );
     }
 }
 
