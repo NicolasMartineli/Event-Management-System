@@ -1,4 +1,6 @@
 package repositories;
 
-public class EventRepository {
+import entities.Event;
+
+public class EventRepository extends Repository<Event>{
 }

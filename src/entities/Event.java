@@ -1,10 +1,7 @@
 package entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Event {
     private Integer id;
@@ -67,6 +64,18 @@ public class Event {
 
     public Set<String> getBuyerEmails() {
         return buyerEmails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
     public void addTicket(Ticket ticket) {
