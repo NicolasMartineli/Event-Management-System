@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static entities.enums.TicketType.*;
@@ -123,8 +124,32 @@ public class TicketService {
         revenueByType.forEach((type, totalValue) ->
                 System.out.printf("%s: R$ %.2f%n", type, totalValue));
 
+    }
+
+    public void cancelTicket(Event event, String buyerEmail) {
+        if (event == null) {
+            throw new EventNotFoundException("Error: Event is not found.");
+        }
+        if (event.getData().isBefore(LocalDate.now())) {
+            throw new InvalidEventException("Error: The event has already taken place.");
+        }
+        Optional<Ticket> resultado = event.getTicketsSold().stream()
+                .filter(ticket -> ticket.getBuyerEmail().equals(buyerEmail))
+                .findFirst();
+
+        if (resultado.isEmpty()) {
+            throw new TicketNotFoundException("Error: Ticket is not found");
+
+        } else {
+            Ticket ticket = resultado.get();
+            event.removeTicket(ticket);
+            event.removeBuyerEmail(buyerEmail);
+            System.out.println("Ticket successfully cancelled.");
+        }
+
 
     }
+
 }
 
 
