@@ -6,8 +6,11 @@ import entities.enums.TicketType;
 import exceptions.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import static entities.enums.TicketType.*;
 
@@ -37,7 +40,7 @@ public class TicketService {
             throw new InvalidEventException("Error: The event has already happened");
         }
         if (event.getBuyerEmails().contains(buyerEmail)) {
-            throw new DuplicateBuyerException("Error: This email already has a ticket ");
+            throw new DuplicateBuyerException("Error: This email already has a ticket");
 
         }
         if (ticketType == COMMOM) {
@@ -78,6 +81,49 @@ public class TicketService {
                         ticket.getTicketType(),
                         ticket.priceTicket())
         );
+    }
+
+    public void financialSummary(Event event) {
+        if (event == null) {
+            throw new EventNotFoundException("Error: Event does not exist");
+        }
+
+        System.out.printf("Financial summary - " + event.getName());
+        System.out.println();
+        System.out.println("Date: " + event.getData());
+        System.out.println("Capacity: " + event.getMaximumCapacity());
+        System.out.println("Tickets sold: " + event.getTicketsSold().size());
+        System.out.println("Tickets available: " + (event.getMaximumCapacity() - event.getTicketsSold().size()));
+
+        Map<TicketType, Integer> quantityByType = new LinkedHashMap<>();
+        Map<TicketType, Double> revenueByType = new LinkedHashMap<>();
+
+        event.getTicketsSold().forEach(ticket -> {
+
+            TicketType type = ticket.getTicketType();
+            int quantity = quantityByType.getOrDefault(type, 0);
+            quantityByType.put(type, quantity + 1);
+
+            Double sum = ticket.priceTicket();
+            revenueByType.merge(type, sum, Double::sum);
+        });
+        double total = revenueByType.values().stream()
+                .mapToDouble(valor -> valor)
+                .sum();
+
+        System.out.println("Total revenue: " + total);
+        System.out.println();
+
+        System.out.print("Quantity per type: ");
+        quantityByType.forEach((type, quantity) ->
+                System.out.println(type + ": " + quantity));
+
+        System.out.println();
+        System.out.print("Revenue per type:");
+        revenueByType.forEach((type, totalValue) ->
+                System.out.printf("%s: R$ %.2f%n", type, totalValue));
+
+
     }
 }
 
