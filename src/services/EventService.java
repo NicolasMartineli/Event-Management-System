@@ -4,6 +4,7 @@ import entities.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 
 public class EventService {
@@ -15,4 +16,14 @@ public class EventService {
                 .forEach(event -> System.out.println(
                         event.getId() + " - " + event.getName() + " - " + event.getData().format(fmt)));
     }
+
+    public void listEventsperDate(List<Event> events) {
+        Comparator<Event> comp = (e1, e2) -> e1.getData().compareTo(e2.getData());
+        events.sort(comp);
+        events.forEach(event -> System.out.println(event.getId()
+                + " - " + event.getName() + " - " + event.getData().format(fmt)));
+
+
+    }
+
 }
