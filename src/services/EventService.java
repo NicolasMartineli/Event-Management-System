@@ -32,7 +32,7 @@ public class EventService {
 
     }
 
-    public void findEventsByName(List<Event> events, String word) {
+    public void findEventsPerName(List<Event> events, String word) {
 
         events.stream()
                 .filter(event -> event.getName().toLowerCase().contains(word.toLowerCase()))
@@ -69,6 +69,7 @@ public class EventService {
             return;
         }
         System.out.println("Registered events:");
+        System.out.println();
 
         for (Event event : events) {
             System.out.println("ID: " + event.getId());
@@ -80,6 +81,22 @@ public class EventService {
             System.out.println();
         }
     }
+
+    public void findEventsPerId(Event event) {
+        if (event == null) {
+            System.out.println("Error: Event not found.");
+            return;
+        }
+
+        System.out.printf("ID: %d%nName: %s%nDate: %s%nMaximum capacity: %d%nTickets sold: %d%nBase price: %.2f%n",
+                event.getId(),
+                event.getName(),
+                event.getData().format(fmt),
+                event.getMaximumCapacity(),
+                event.getTicketsSold().size(),
+                event.getTicketBase());
+    }
 }
+
 
 

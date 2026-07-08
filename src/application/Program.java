@@ -44,9 +44,19 @@ public class Program {
             System.out.println("0 - Exit");
             System.out.println();
             System.out.print("Choose an option: ");
-            option = Integer.parseInt(sc.nextLine());
-            System.out.println();
+            String input = sc.nextLine();
 
+            while (input.isBlank()) {
+                input = sc.nextLine();
+            }
+
+            try {
+                option = Integer.parseInt(input);
+                System.out.println();
+            } catch (NumberFormatException o) {
+                System.out.println("Error: Please enter a valid number.");
+                continue;
+            }
 
             switch (option) {
                 case 1:
@@ -75,21 +85,42 @@ public class Program {
                         System.out.println("Event ID: " + nextId);
 
                         nextId++;
-                        break;
+
                     } catch (InvalidEventException e) {
-                        System.out.println("Error " + e.getMessage());
+                        System.out.println(e.getMessage());
                     } catch (DateTimeParseException e) {
                         System.out.println("Error: Invalid date format. Please use yyyy-MM-dd.");
                     }
+                    break;
 
                 case 2:
+
                     Collection<Event> events = eventRepository.findAll();
                     eventService.listEvents(events);
                     break;
+
+                case 3:
+
+                    try {
+                        System.out.print("Enter the event ID: ");
+                        Integer id = Integer.parseInt(sc.nextLine());
+                        System.out.println();
+
+                        Event event = eventRepository.findById(id);
+
+                        eventService.findEventsPerId(event);
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+
             }
-
-
+            if (option != 0) {
+                System.out.println();
+                System.out.print("Press Enter to continue...");
+                sc.nextLine();
+            }
         }
-
     }
 }
