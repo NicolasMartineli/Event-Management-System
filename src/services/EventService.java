@@ -1,6 +1,7 @@
 package services;
 
 import entities.Event;
+import exceptions.InvalidEventException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,6 +36,26 @@ public class EventService {
                 .forEach(event -> System.out.println(event.getId() + " - " + event.getName() + " - " + event.getData().format(fmt)));
 
 
+    }
+    public Event registerEvent(Integer id, String name, LocalDate date, Integer maxCapacity, Double ticketBase) {
+
+        if (name == null || name.isBlank()) {
+            throw new InvalidEventException("Error: Event name cannot be empty.");
+        }
+
+        if (date.isBefore(LocalDate.now())) {
+            throw new InvalidEventException("Error: Event date cannot be before the current date.");
+        }
+
+        if (maxCapacity == null || maxCapacity <= 0) {
+            throw new InvalidEventException("Error: Maximum capacity must be greater than zero.");
+        }
+
+        if (ticketBase == null || ticketBase <= 0) {
+            throw new InvalidEventException("Error: Base price must be greater than zero.");
+        }
+
+        return new Event(id, name, date, maxCapacity, ticketBase);
     }
 }
 
