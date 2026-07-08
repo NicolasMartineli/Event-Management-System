@@ -2,9 +2,12 @@ package services;
 
 import entities.Event;
 import exceptions.InvalidEventException;
+import repositories.EventRepository;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class EventService {
 
 
     }
+
     public Event registerEvent(Integer id, String name, LocalDate date, Integer maxCapacity, Double ticketBase) {
 
         if (name == null || name.isBlank()) {
@@ -56,6 +60,25 @@ public class EventService {
         }
 
         return new Event(id, name, date, maxCapacity, ticketBase);
+    }
+
+    public void listEvents(Collection<Event> events) {
+
+        if (events.isEmpty()) {
+            System.out.println("No events registered yet.");
+            return;
+        }
+        System.out.println("Registered events:");
+
+        for (Event event : events) {
+            System.out.println("ID: " + event.getId());
+            System.out.println("Name: " + event.getName());
+            System.out.println("Date: " + event.getData().format(fmt));
+            System.out.println("Maximum capacity: " + event.getMaximumCapacity());
+            System.out.println("Tickets sold: " + event.getTicketsSold().size());
+            System.out.printf("Base price: %.2f%n", event.getTicketBase());
+            System.out.println();
+        }
     }
 }
 

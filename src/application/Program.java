@@ -9,6 +9,7 @@ import services.TicketService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -54,7 +55,7 @@ public class Program {
                         String name = sc.nextLine();
                         System.out.println();
 
-                        System.out.print("Event date: ");
+                        System.out.print("Event date (yyyy-MM-dd): ");
                         LocalDate date = LocalDate.parse(sc.nextLine());
                         System.out.println();
 
@@ -74,15 +75,21 @@ public class Program {
                         System.out.println("Event ID: " + nextId);
 
                         nextId++;
-
+                        break;
                     } catch (InvalidEventException e) {
                         System.out.println("Error " + e.getMessage());
                     } catch (DateTimeParseException e) {
                         System.out.println("Error: Invalid date format. Please use yyyy-MM-dd.");
                     }
 
+                case 2:
+                    Collection<Event> events = eventRepository.findAll();
+                    eventService.listEvents(events);
+                    break;
             }
 
+
         }
+
     }
 }
