@@ -18,7 +18,7 @@ import static entities.enums.TicketType.*;
 public class TicketService {
 
 
-    public Ticket sellTicket(Integer id, String buyerName, String buyerEmail, Event event, TicketType ticketType) {
+    public Ticket sellTicket(String buyerName, String buyerEmail, Event event, TicketType ticketType) {
 
         Ticket ticket = null;
 

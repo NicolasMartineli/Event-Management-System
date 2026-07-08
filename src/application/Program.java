@@ -1,7 +1,9 @@
 package application;
 
 import entities.Event;
-import exceptions.InvalidEventException;
+import entities.Ticket;
+import entities.enums.TicketType;
+import exceptions.*;
 import repositories.EventRepository;
 import services.EventService;
 import services.TicketService;
@@ -59,6 +61,7 @@ public class Program {
             }
 
             switch (option) {
+
                 case 1:
                     try {
                         System.out.print("Event name: ");
@@ -115,12 +118,44 @@ public class Program {
                     }
                     break;
 
+                case 4:
+                    try {
+                        System.out.println("Id: ");
+                        Integer id = Integer.parseInt(sc.nextLine());
+                        Event event = eventRepository.findById(id);
+
+                        System.out.println("Buyer name: ");
+                        String name = sc.nextLine();
+
+                        System.out.println("Buyer email: ");
+                        String buyerEmail = sc.nextLine();
+
+                        System.out.println("Ticket type: ");
+                        TicketType ticketType = TicketType.valueOf(sc.nextLine().toUpperCase());
+
+                        Ticket ticket = ticketService.sellTicket(name, buyerEmail, event, ticketType);
+
+                        System.out.println();
+                        System.out.println("Ticket sold successfully!");
+                        System.out.printf("Final price: R$ %.2f%n", ticket.priceTicket());
+
+                    } catch (EventNotFoundException | InvalidTicketException | EventFullException
+                             | DuplicateBuyerException | InvalidEventException e) {
+                        System.out.println(e.getMessage());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Invalid ID format.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: Invalid ticket type.");
+                    }
+                    break;
             }
+
             if (option != 0) {
                 System.out.println();
                 System.out.print("Press Enter to continue...");
                 sc.nextLine();
             }
+
         }
     }
 }
