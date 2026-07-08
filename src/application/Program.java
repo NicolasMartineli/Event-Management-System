@@ -8,6 +8,7 @@ import services.TicketService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -42,21 +43,24 @@ public class Program {
             System.out.println("0 - Exit");
             System.out.println();
             System.out.print("Choose an option: ");
-            option = sc.nextInt();
+            option = Integer.parseInt(sc.nextLine());
             System.out.println();
 
 
             switch (option) {
                 case 1:
                     try {
-                        System.out.println("Event name: ");
+                        System.out.print("Event name: ");
                         String name = sc.nextLine();
+                        System.out.println();
 
-                        System.out.println("Event date: ");
+                        System.out.print("Event date: ");
                         LocalDate date = LocalDate.parse(sc.nextLine());
+                        System.out.println();
 
                         System.out.print("Maximum capacity: ");
                         int max = Integer.parseInt(sc.nextLine());
+                        System.out.println();
 
                         System.out.print("Base price: ");
                         double ticketBase = Double.parseDouble(sc.nextLine());
@@ -64,18 +68,18 @@ public class Program {
 
 
                         Event event = eventService.registerEvent(nextId, name, date, max, ticketBase);
-                        eventRepository.save(event.getId()  , event);
+                        eventRepository.save(event.getId(), event);
 
                         System.out.println("Event registered successfully!");
                         System.out.println("Event ID: " + nextId);
 
                         nextId++;
+
+                    } catch (InvalidEventException e) {
+                        System.out.println("Error " + e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Error: Invalid date format. Please use yyyy-MM-dd.");
                     }
-
-                    catch(InvalidEventException e){
-                            System.out.println("Error " + e.getMessage());
-                        }
-
 
             }
 
