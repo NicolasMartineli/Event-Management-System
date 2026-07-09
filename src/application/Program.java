@@ -114,7 +114,7 @@ public class Program {
                         eventService.findEventsPerId(event);
 
                     } catch (NumberFormatException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println("Error: Invalid ID format.");
                     }
                     break;
 
@@ -163,9 +163,9 @@ public class Program {
 
                         ticketService.listTicketByEvent(event);
                     } catch (EventNotFoundException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println("Error: Invalid ID format.");
                     }
                     break;
 
@@ -181,10 +181,28 @@ public class Program {
                     } catch (EventNotFoundException e) {
                         System.out.println("Error: " + e.getMessage());
                     } catch (NumberFormatException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println("Error: Invalid ID format.");
                     }
                     break;
 
+                case 7:
+                    try {
+
+                        System.out.print("Enter the event ID: ");
+                        Integer id = Integer.parseInt(sc.nextLine());
+
+                        System.out.print("Buyer email: ");
+                        String buyerEmail = sc.nextLine();
+                        System.out.println();
+
+                        Event event = eventRepository.findById(id);
+                        ticketService.cancelTicket(event, buyerEmail);
+                    } catch (EventNotFoundException | InvalidEventException | TicketNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Invalid ID format.");
+                    }
+                    break;
             }
 
             if (option != 0) {
