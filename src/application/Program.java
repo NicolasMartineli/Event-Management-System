@@ -208,13 +208,31 @@ public class Program {
                     eventService.listFutureEvents(event);
                     break;
 
-                case 9:
-                    System.out.println("Events ordered by date: ");
+                case 9: {
+                    System.out.print("Events ordered by date: ");
                     System.out.println();
 
                     List<Event> eventList = new ArrayList<>(eventRepository.findAll());
 
                     eventService.listEventsperDate(eventList);
+                }
+                break;
+
+                case 10:
+                    try {
+                        System.out.print("Type a word: ");
+                        String word = sc.nextLine();
+                        System.out.println();
+
+                        List<Event> eventList = new ArrayList<>(eventRepository.findAll());
+
+                        eventService.findEventsPerName(eventList, word);
+
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    } catch (InvalidEventException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
             }
             if (option != 0) {
@@ -225,7 +243,7 @@ public class Program {
 
         }
 
-        }
-
     }
+
+}
 

@@ -4,7 +4,6 @@ import entities.Event;
 import exceptions.InvalidEventException;
 
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -33,6 +32,10 @@ public class EventService {
     }
 
     public void findEventsPerName(List<Event> events, String word) {
+
+        if (word == null || word.isBlank()) {
+            throw new IllegalArgumentException("Search word cannot be empty.");
+        }
 
         events.stream()
                 .filter(event -> event.getName().toLowerCase().contains(word.toLowerCase()))
