@@ -115,12 +115,12 @@ public class TicketService {
         System.out.println("Total revenue: " + total);
         System.out.println();
 
-        System.out.print("Quantity per type: ");
+        System.out.print("Quantity per type ");
         quantityByType.forEach((type, quantity) ->
                 System.out.println(type + ": " + quantity));
 
         System.out.println();
-        System.out.print("Revenue per type:");
+        System.out.print("Revenue per type");
         revenueByType.forEach((type, totalValue) ->
                 System.out.printf("%s: R$ %.2f%n", type, totalValue));
 
