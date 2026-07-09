@@ -2,7 +2,7 @@ package services;
 
 import entities.Event;
 import exceptions.InvalidEventException;
-import repositories.EventRepository;
+
 
 
 import java.time.LocalDate;
