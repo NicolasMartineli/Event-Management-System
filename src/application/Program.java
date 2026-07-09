@@ -12,8 +12,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Program {
     public static void main(String[] args) {
@@ -187,7 +189,6 @@ public class Program {
 
                 case 7:
                     try {
-
                         System.out.print("Enter the event ID: ");
                         Integer id = Integer.parseInt(sc.nextLine());
 
@@ -203,8 +204,13 @@ public class Program {
                         System.out.println("Error: Invalid ID format.");
                     }
                     break;
-            }
 
+                case 8:
+                    System.out.println("Future events:");
+                    Collection<Event> event = eventRepository.findAll();
+                    eventService.listFutureEvents(event);
+                    break;
+            }
             if (option != 0) {
                 System.out.println();
                 System.out.print("Press Enter to continue...");
@@ -212,5 +218,8 @@ public class Program {
             }
 
         }
+
+        }
+
     }
-}
+

@@ -14,7 +14,7 @@ import java.util.List;
 public class EventService {
     private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public void listFutureEvents(List<Event> events) {
+    public void listFutureEvents(Collection<Event> events) {
 
         events.stream()
                 .filter(event -> event.getData().isAfter(LocalDate.now()) || event.getData().isEqual(LocalDate.now()))
