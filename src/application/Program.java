@@ -11,9 +11,7 @@ import services.TicketService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Collection;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Program {
@@ -134,7 +132,7 @@ public class Program {
                         String buyerEmail = sc.nextLine();
                         System.out.println();
 
-                        System.out.print("Ticket type: (Vip/Student/Commom");
+                        System.out.print("Ticket type: (Vip/Student/Commom)");
                         TicketType ticketType = TicketType.valueOf(sc.nextLine().toUpperCase());
                         System.out.println();
 
@@ -212,6 +210,12 @@ public class Program {
 
                 case 9:
                     System.out.println("Events ordered by date: ");
+                    System.out.println();
+
+                    List<Event> eventList = new ArrayList<>(eventRepository.findAll());
+
+                    eventService.listEventsperDate(eventList);
+                    break;
             }
             if (option != 0) {
                 System.out.println();
