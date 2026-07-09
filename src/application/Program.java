@@ -163,9 +163,25 @@ public class Program {
 
                         ticketService.listTicketByEvent(event);
                     } catch (EventNotFoundException e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("Error: " + e.getMessage());
                     } catch (NumberFormatException e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+
+                case 6:
+                    try {
+                        System.out.print("Enter the event ID: ");
+                        Integer id = Integer.parseInt(sc.nextLine());
+                        System.out.println();
+
+                        Event event = eventRepository.findById(id);
+
+                        ticketService.financialSummary(event);
+                    } catch (EventNotFoundException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: " + e.getMessage());
                     }
                     break;
 
