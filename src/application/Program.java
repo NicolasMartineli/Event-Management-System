@@ -120,18 +120,22 @@ public class Program {
 
                 case 4:
                     try {
-                        System.out.println("Id: ");
+                        System.out.print("Id: ");
                         Integer id = Integer.parseInt(sc.nextLine());
+                        System.out.println();
                         Event event = eventRepository.findById(id);
 
-                        System.out.println("Buyer name: ");
+                        System.out.print("Buyer name: ");
                         String name = sc.nextLine();
+                        System.out.println();
 
-                        System.out.println("Buyer email: ");
+                        System.out.print("Buyer email: ");
                         String buyerEmail = sc.nextLine();
+                        System.out.println();
 
-                        System.out.println("Ticket type: ");
+                        System.out.print("Ticket type: ");
                         TicketType ticketType = TicketType.valueOf(sc.nextLine().toUpperCase());
+                        System.out.println();
 
                         Ticket ticket = ticketService.sellTicket(name, buyerEmail, event, ticketType);
 
@@ -148,6 +152,23 @@ public class Program {
                         System.out.println("Error: Invalid ticket type.");
                     }
                     break;
+
+                case 5:
+                    try {
+                        System.out.print("Enter the event ID: ");
+                        Integer id = Integer.parseInt(sc.nextLine());
+                        System.out.println();
+
+                        Event event = eventRepository.findById(id);
+
+                        ticketService.listTicketByEvent(event);
+                    } catch (EventNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    } catch (NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
             }
 
             if (option != 0) {
