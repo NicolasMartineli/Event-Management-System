@@ -178,7 +178,7 @@ public class Program {
 
                         ticketService.financialSummary(event);
                     } catch (EventNotFoundException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Invalid ID format.");
                     }
@@ -219,20 +219,14 @@ public class Program {
                 break;
 
                 case 10:
-                    try {
-                        System.out.print("Type a word: ");
-                        String word = sc.nextLine();
-                        System.out.println();
+                    System.out.print("Type a word: ");
+                    String word = sc.nextLine();
+                    System.out.println();
 
-                        List<Event> eventList = new ArrayList<>(eventRepository.findAll());
+                    List<Event> eventList = new ArrayList<>(eventRepository.findAll());
 
-                        eventService.findEventsPerName(eventList, word);
+                    eventService.findEventsPerName(eventList, word);
 
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Error: " + e.getMessage());
-                    } catch (InvalidEventException e) {
-                        System.out.println(e.getMessage());
-                    }
                     break;
             }
             if (option != 0) {
