@@ -1,10 +1,10 @@
-# 🎫 Event Management System
+#  Event Management System
 
 A console-based Java application for managing events and ticket sales, built with **pure Java** — no frameworks, no database, no GUI. This is a personal project built to practice core Object-Oriented Programming concepts and modern Java features.
 
 ---
 
-## 📋 Overview
+##  Overview
 
 The system allows an events company to register events, sell different types of tickets, track ticket sales, generate financial reports, and manage cancellations — all through an interactive console menu.
 
@@ -12,7 +12,7 @@ Each event has a maximum capacity, a base ticket price, and enforces business ru
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Event management**: register, list, and search events by ID or name
 - **Ticket sales**: sell tickets with automatic price calculation based on ticket type
@@ -30,7 +30,7 @@ Each event has a maximum capacity, a base ticket price, and enforces business ru
 
 ---
 
-## 🧠 Concepts Practiced
+##  Concepts Practiced
 
 This project was built specifically to practice the following Java and OOP concepts:
 
@@ -46,7 +46,7 @@ This project was built specifically to practice the following Java and OOP conce
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 src/
@@ -77,7 +77,7 @@ src/
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 The project follows a simple layered architecture:
 
@@ -98,7 +98,7 @@ This separation keeps validation and business logic out of the UI layer, and kee
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -119,7 +119,7 @@ This separation keeps validation and business logic out of the UI layer, and kee
 
 ---
 
-## 🖥️ Usage Example
+##  Usage Example
 
 ```
 ==== EVENT SYSTEM ====
@@ -177,7 +177,7 @@ VIP: R$ 300.00
 
 ---
 
-## 🛡️ Error Handling
+##  Error Handling
 
 All business rule violations are handled through custom exceptions, and every operation that reads user input is wrapped in validation logic. The user is always shown a clear, human-readable message (e.g. `Error: This email already has a ticket for this event.`) — no raw exceptions or stack traces are ever displayed.
 
@@ -192,7 +192,7 @@ All business rule violations are handled through custom exceptions, and every op
 
 ---
 
-## 🔮 Possible Improvements
+##  Possible Improvements
 
 - Persist data to a file or database instead of in-memory storage
 - Add a general system report (total events, total revenue, top-selling event)
@@ -201,13 +201,13 @@ All business rule violations are handled through custom exceptions, and every op
 
 ---
 
-## 👤 Author
+##  Author
 
 **Nícolas Martineli**
 Information Systems student at FHO (Fundação Hermínio Ometto)
 
 ---
 
-## 📄 License
+##  License
 
 This is a personal project, built independently to practice Java and object-oriented programming.
