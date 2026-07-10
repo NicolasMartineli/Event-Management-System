@@ -203,8 +203,8 @@ All business rule violations are handled through custom exceptions, and every op
 
 ## 👤 Author
 
-**Nicolas Martineli**
-Information Systems student at FHO (Faculdade Hermínio Ometto)
+**Nícolas Martineli**
+Information Systems student at FHO (Fundação Hermínio Ometto)
 
 ---
 
