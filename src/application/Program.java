@@ -67,18 +67,44 @@ public class Program {
                         String name = sc.nextLine();
                         System.out.println();
 
-                        System.out.print("Event date (yyyy-MM-dd): ");
-                        LocalDate date = LocalDate.parse(sc.nextLine());
+                        LocalDate date = null;
+                        boolean validDate = false;
+                        while (!validDate) {
+                            try {
+                                System.out.print("Event date (yyyy-MM-dd): ");
+                                date = LocalDate.parse(sc.nextLine());
+                                validDate = true;
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Error: Invalid date format. Please use yyyy-MM-dd.");
+                            }
+                        }
                         System.out.println();
 
-                        System.out.print("Maximum capacity: ");
-                        int max = Integer.parseInt(sc.nextLine());
+                        Integer max = null;
+                        boolean validMax = false;
+                        while (!validMax) {
+                            try {
+                                System.out.print("Maximum capacity: ");
+                                max = Integer.parseInt(sc.nextLine());
+                                validMax = true;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Error: Invalid number format. Try again.");
+                            }
+                        }
                         System.out.println();
 
-                        System.out.print("Base price: ");
-                        double ticketBase = Double.parseDouble(sc.nextLine());
+                        Double ticketBase = null;
+                        boolean validPrice = false;
+                        while (!validPrice) {
+                            try {
+                                System.out.print("Base price: ");
+                                ticketBase = Double.parseDouble(sc.nextLine());
+                                validPrice = true;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Error: Invalid number format. Try again.");
+                            }
+                        }
                         System.out.println();
-
 
                         Event event = eventService.registerEvent(nextId, name, date, max, ticketBase);
                         eventRepository.save(event.getId(), event);
@@ -90,8 +116,6 @@ public class Program {
 
                     } catch (InvalidEventException e) {
                         System.out.println(e.getMessage());
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Error: Invalid date format. Please use yyyy-MM-dd.");
                     }
                     break;
 
@@ -119,10 +143,24 @@ public class Program {
 
                 case 4:
                     try {
-                        System.out.print("Id: ");
-                        Integer id = Integer.parseInt(sc.nextLine());
+                        Integer id = null;
+                        Event event = null;
+                        boolean validId = false;
+                        while (!validId) {
+                            try {
+                                System.out.print("Event ID: ");
+                                id = Integer.parseInt(sc.nextLine());
+                                event = eventRepository.findById(id);
+                                if (event == null) {
+                                    System.out.println("Error: Event does not exist. Try again.");
+                                } else {
+                                    validId = true;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Error: Invalid ID format. Try again.");
+                            }
+                        }
                         System.out.println();
-                        Event event = eventRepository.findById(id);
 
                         System.out.print("Buyer name: ");
                         String name = sc.nextLine();
@@ -132,23 +170,27 @@ public class Program {
                         String buyerEmail = sc.nextLine();
                         System.out.println();
 
-                        System.out.print("Ticket type: (Vip/Student/Commom)");
-                        TicketType ticketType = TicketType.valueOf(sc.nextLine().toUpperCase());
+                        TicketType ticketType = null;
+                        boolean validType = false;
+                        while (!validType) {
+                            try {
+                                System.out.print("Ticket type (VIP/STUDENT/COMMON): ");
+                                ticketType = TicketType.valueOf(sc.nextLine().toUpperCase());
+                                validType = true;
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Error: Invalid ticket type. Try again.");
+                            }
+                        }
                         System.out.println();
 
                         Ticket ticket = ticketService.sellTicket(name, buyerEmail, event, ticketType);
 
-                        System.out.println();
                         System.out.println("Ticket sold successfully!");
                         System.out.printf("Final price: R$ %.2f%n", ticket.priceTicket());
 
-                    } catch (EventNotFoundException | InvalidTicketException | EventFullException
-                             | DuplicateBuyerException | InvalidEventException e) {
+                    } catch (InvalidTicketException | EventFullException | DuplicateBuyerException |
+                             InvalidEventException e) {
                         System.out.println(e.getMessage());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Invalid ID format.");
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Error: Invalid ticket type.");
                     }
                     break;
 
@@ -188,6 +230,7 @@ public class Program {
                     try {
                         System.out.print("Enter the event ID: ");
                         Integer id = Integer.parseInt(sc.nextLine());
+                        System.out.println();
 
                         System.out.print("Buyer email: ");
                         String buyerEmail = sc.nextLine();
